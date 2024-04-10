@@ -1,0 +1,16 @@
+name: 'Main Branch Check'
+description: 'Check the main branch status and allow override via PR description'
+inputs:
+  gh_token:
+    description: 'GitHub Token for authentication'
+    required: true
+  main_branch:
+    description: 'Name of primary branch'
+    default: 'main'
+    required: false
+  workflow_ref:
+    description: 'pass in github.workflow_ref here'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
