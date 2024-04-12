@@ -1,5 +1,7 @@
 # main-branch-check action
 
+[![Build](https://github.com/openai/main-branch-check-action/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/openai/main-branch-check-action/actions/workflows/build.yaml)
+
 This check will determine the workflow it was called from, then
 see if tha workflow has run on master, and if it has, ensure
 it is passing.
