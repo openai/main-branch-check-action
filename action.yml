@@ -16,5 +16,5 @@ inputs:
     required: false
     default: true
 runs:
-  using: "node21"
+  using: "node20"
   main: "dist/index.js"
