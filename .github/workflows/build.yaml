@@ -1,0 +1,23 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ mian ]
+
+jobs:
+  build:
+    runs-on: ubuntu-linux
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+    - name: setup node
+      uses: actions/setup-node@v6
+      with:
+        node-version: '21.x'
+    - name: install deps
+      run: |
+        sudo apt install make
+    - name: build
+      run: make
