@@ -34476,6 +34476,7 @@ const token = core.getInput('gh_token')
 // name is, and the name doesn't even have to be unique.
 const workflowRef = core.getInput('workflow_ref')
 const mainBranch = core.getInput('main_branch')
+const allowOverrideAll = core.getInput('allow_override_all')
 
 // contexts
 const octokit = github.getOctokit(token)
@@ -34599,7 +34600,11 @@ async function getOverrideFlags() {
     const results = [...prDesc.matchAll(re)]
     for (const result of results) {
         if (result[1] === "") {
-            flags = flags.concat(["all"])
+            if (allowOverrideAll) {
+                flags = flags.concat(["all"])
+            } else {
+                console.log("Override flag was set for all workflows, but action configured to not allow that. Please specify workflows to override.")
+            }
         } else {
             flags = flags.concat([result[1]])
         }
