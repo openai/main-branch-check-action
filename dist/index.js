@@ -34531,7 +34531,8 @@ async function updateStatusComment(overridden, workflowStatus, workflowUrl) {
     const workflowNameLink = `[${workflowName}](${workflowUrl})`
     const workflowMarkerPattern = `- ${workflowNameLink}: `
     const workflowLine = `${workflowMarkerPattern}${level}`
-    const workflowIndex = lines.findIndex(line => line.includes(`[${workflowName}]`));
+    const workflowMatch = `[${workflowName}]`
+    const workflowIndex = lines.findIndex(line => line.includes(workflowMatch))
 
     if (workflowStatus === "failure") {
         if (workflowIndex !== -1) {
@@ -34660,7 +34661,7 @@ async function run() {
                 core.setFailed(msg)
             }
         } else {
-            console.log(`Latest run of workflow on master branch is successful: ${latestRun.html_url}`)
+            console.log(`Latest run of workflow on master branch is successful: ${latestRun?.html_url}`)
         }
     } catch (error) {
         core.setFailed(`Action failed with error: ${error}`)
