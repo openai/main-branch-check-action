@@ -1,6 +1,6 @@
 {
   "name": "main-branch-check",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Check main branch status of a workflow",
   "main": "index.js",
   "dependencies": {
