@@ -128,18 +128,20 @@ async function getOverrideFlags() {
     })
     let flags = []
     const prDesc = pr.body
-    const matcher = `\\[ci ${overrideFlag} ?(.*)\\]`
-    const re = new RegExp(matcher, 'gi')
-    const results = [...prDesc.matchAll(re)]
-    for (const result of results) {
-        if (result[1] === "") {
-            if (allowOverrideAll) {
-                flags = flags.concat(["all"])
+    if (prDesc !== null) {
+        const matcher = `\\[ci ${overrideFlag} ?(.*)\\]`
+        const re = new RegExp(matcher, 'gi')
+        const results = [...prDesc.matchAll(re)]
+        for (const result of results) {
+            if (result[1] === "") {
+                if (allowOverrideAll) {
+                    flags = flags.concat(["all"])
+                } else {
+                    console.log("Override flag was set for all workflows, but action configured to not allow that. Please specify workflows to override.")
+                }
             } else {
-                console.log("Override flag was set for all workflows, but action configured to not allow that. Please specify workflows to override.")
+                flags = flags.concat([result[1]])
             }
-        } else {
-            flags = flags.concat([result[1]])
         }
     }
     return flags
