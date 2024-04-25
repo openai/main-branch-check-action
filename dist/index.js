@@ -34652,10 +34652,16 @@ async function run() {
         const flags = await getOverrideFlags()
         const overridden = await isWorkflowOverridden(flags)
 
+        if (!latestRun) {
+            console.log(`No run of this workflow found on ${mainBranch}, must be new.`)
+            return
+        }
+
         console.log("Creating, updating, or removing comment, as necessary")
         await updateStatusComment(overridden, latestRun.conclusion, latestRun?.html_url)
-        if (latestRun && latestRun.conclusion !== 'success') {
-            let msg = `Latest run of workflow on master branch is failing: ${latestRun?.html_url}`
+
+        if (latestRun.conclusion !== 'success') {
+            let msg = `Latest run of workflow on ${mainBranch} branch is failing: ${latestRun?.html_url}`
             if (overridden) {
                 console.log(msg)
                 console.log("Override flag found, not failing the run.")
@@ -34663,7 +34669,7 @@ async function run() {
                 core.setFailed(msg)
             }
         } else {
-            console.log(`Latest run of workflow on master branch is successful: ${latestRun?.html_url}`)
+            console.log(`Latest run of workflow on ${mainBranch} branch is successful: ${latestRun?.html_url}`)
         }
     } catch (error) {
         core.setFailed(`Action failed with error: ${error}`)
