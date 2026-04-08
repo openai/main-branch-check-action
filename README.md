@@ -1,3 +1,5 @@
+NOTE: This repo is no longer maintained, instead you may want to try [https://github.com/jaymzh/main-branch-check-action](https://github.com/jaymzh/main-branch-check-action)
+
 # main-branch-check action
 
 [![Build](https://github.com/openai/main-branch-check-action/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/openai/main-branch-check-action/actions/workflows/build.yaml)
